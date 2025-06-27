@@ -1,4 +1,5 @@
 use std::env;
+use std::fs;
 
 fn main() {
     //获取当前文件夹
@@ -36,11 +37,16 @@ fn main() {
     let output = std::process::Command::new("cargo")
         .arg("init")
         .arg("--vcs=none")
-        .current_dir(new_project_folder)
+        .current_dir(&new_project_folder)
         .output()
         .unwrap();
 
     if output.status.success() {
+        //将Cargo.toml文件追加内容
+        //[lints.rust]
+        //dead_code = "allow"
+        let cargo_toml_path = new_project_folder.join("Cargo.toml");
+        fs::write(&cargo_toml_path, "[lints.rust]\ndead_code = \"allow\"").unwrap();
         println!("成功初始化项目");
     } else {
         println!("初始化项目失败");

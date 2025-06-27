@@ -3,5 +3,5 @@
 version = 4
 
 [[package]]
-name = "generaterProject"
+name = "gp"
 version = "0.1.0"
