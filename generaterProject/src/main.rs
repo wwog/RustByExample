@@ -1,5 +1,6 @@
 use std::env;
 use std::fs;
+use std::io::Write;
 
 fn main() {
     //获取当前文件夹
@@ -46,7 +47,12 @@ fn main() {
         //[lints.rust]
         //dead_code = "allow"
         let cargo_toml_path = new_project_folder.join("Cargo.toml");
-        fs::write(&cargo_toml_path, "[lints.rust]\ndead_code = \"allow\"").unwrap();
+        let mut file = fs::OpenOptions::new()
+            .write(true)
+            .append(true)
+            .open(&cargo_toml_path)
+            .unwrap();
+        writeln!(file, "\n[lints.rust]\ndead_code = \"allow\"").unwrap();
         println!("成功初始化项目");
     } else {
         println!("初始化项目失败");
