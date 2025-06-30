@@ -52,7 +52,11 @@ fn main() {
             .append(true)
             .open(&cargo_toml_path)
             .unwrap();
-        writeln!(file, "\n[lints.rust]\ndead_code = \"allow\"").unwrap();
+        writeln!(
+            file,
+            "\n[lints.rust]\ndead_code = \"allow\"\nunused_variables=\"allow\""
+        )
+        .unwrap();
         println!("成功初始化项目");
     } else {
         println!("初始化项目失败");
